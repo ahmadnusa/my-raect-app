@@ -1,4 +1,4 @@
-import AuthLayout from '../components/Layouts/AuthLayout'
+import AuthLayout from '../Layouts/AuthLayout'
 
 export default function LoginPage() {
   return <AuthLayout title="Login" />

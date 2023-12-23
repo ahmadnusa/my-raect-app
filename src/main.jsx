@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import LoginPage from './Pages/login'
-import RegisterPage from './Pages/register'
+import LoginPage from './components/Pages/login'
+import RegisterPage from './components/Pages/register'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
-import NotFoundPage from './Pages/404.jsx'
+import NotFoundPage from './components/Pages/404.jsx'
 
 const router = createBrowserRouter([
   {
