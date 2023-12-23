@@ -4,7 +4,7 @@ import Button from '../Elements/Button'
 export default function ProductCard(props) {
   const { children } = props
   return (
-    <div className=" flex flex-col justify-between w-full max-w-sm bg-gray-800 border border-gray-700 rounded-lg shadow mx-2">
+    <div className=" w-full max-w-xs bg-gray-800 border border-gray-700 rounded-lg shadow mx-3 my-2 flex flex-col justify-between">
       {children}
     </div>
   )
@@ -20,7 +20,7 @@ function Header(props) {
 function Body(props) {
   const { title, children } = props
   return (
-    <div className="px-5 pb-5 h-full">
+    <div className="px-6 pb-5 h-full">
       <a href="">
         <h5 className="text-xl font-semibold tracking-tight text-white">
           {title}
@@ -31,11 +31,18 @@ function Body(props) {
   )
 }
 function Footer(props) {
-  const { price } = props
+  const { price, handleAddToCart, id } = props
   return (
-    <div className="flex items-center justify-between px-5 ">
-      <span className="text-xl font-bold text-white pb-6">{price}</span>
-      <Button text="Add To Chart" />
+    <div className="flex items-center justify-between px-5 pb-6">
+      <span className="text-xl font-bold text-white ">
+        {price.toLocaleString('id-ID', {
+          style: 'currency',
+          currency: 'IDR',
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0
+        })}
+      </span>
+      <Button text="Add To Chart" onClick={() => handleAddToCart(id)} />
     </div>
   )
 }
@@ -55,5 +62,7 @@ Body.propTypes = {
   children: PropTypes.string
 }
 Footer.propTypes = {
-  price: PropTypes.string
+  price: PropTypes.number,
+  handleAddToCart: PropTypes.func,
+  id: PropTypes.number
 }

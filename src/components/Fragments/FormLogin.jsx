@@ -2,8 +2,14 @@ import Button from '../Elements/Button'
 import InputForm from '../Elements/Input'
 
 export default function FormLogin() {
+  function handleLogin(e) {
+    e.preventDefault()
+    localStorage.setItem('email', e.target.email.value)
+    localStorage.setItem('password', e.target.password.value)
+    window.location.href = '/product'
+  }
   return (
-    <form action="">
+    <form onSubmit={handleLogin}>
       <InputForm
         label="Email"
         name="email"
@@ -16,7 +22,7 @@ export default function FormLogin() {
         type="Password"
         placeholder="Password"
       />
-      <Button text="Login" />
+      <Button text="Login" type="submit" />
     </form>
   )
 }
