@@ -13,19 +13,23 @@ function Header(props) {
   const { image } = props
   return (
     <a href="#">
-      <img src={image} alt="product" className="p-7 rounded-t-lg" />
+      <img
+        src={image}
+        alt="product"
+        className="p-8 rounded-t-lg h-96 w-full object-cover"
+      />
     </a>
   )
 }
 function Body(props) {
-  const { title, children } = props
+  const { title, desc } = props
   return (
     <div className="px-6 pb-5 h-full">
       <a href="">
-        <h5 className="text-xl font-semibold tracking-tight text-white">
-          {title}
+        <h5 className="text-xl font-semibold tracking-tight text-white pb-2">
+          {title.substring(0, 23)} . . .
         </h5>
-        <p className="text-sm text-white">{children}</p>
+        <p className="text-m text-white">{desc.substring(0, 100)} . . .</p>
       </a>
     </div>
   )
@@ -35,11 +39,9 @@ function Footer(props) {
   return (
     <div className="flex items-center justify-between px-5 pb-6">
       <span className="text-xl font-bold text-white ">
-        {price.toLocaleString('id-ID', {
+        {price.toLocaleString('en-US', {
           style: 'currency',
-          currency: 'IDR',
-          minimumFractionDigits: 0,
-          maximumFractionDigits: 0
+          currency: 'USD'
         })}
       </span>
       <Button text="Add To Chart" onClick={() => handleAddToCart(id)} />
@@ -59,7 +61,7 @@ Header.propTypes = {
 }
 Body.propTypes = {
   title: PropTypes.string,
-  children: PropTypes.string
+  desc: PropTypes.string
 }
 Footer.propTypes = {
   price: PropTypes.number,

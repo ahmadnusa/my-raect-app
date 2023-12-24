@@ -7,6 +7,7 @@ import RegisterPage from './components/Pages/register'
 import NotFoundPage from './components/Pages/404'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
+import ProfilePage from './components/Pages/profile.jsx'
 
 const router = createBrowserRouter([
   {
@@ -23,8 +24,12 @@ const router = createBrowserRouter([
     element: <RegisterPage />
   },
   {
-    path: '/product',
+    path: '/products',
     element: <ProductPage />
+  },
+  {
+    path: '/profile',
+    element: <ProfilePage />
   }
 ])
 

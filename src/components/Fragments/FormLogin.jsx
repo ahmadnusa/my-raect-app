@@ -1,20 +1,29 @@
+import { useState } from 'react'
+import { login } from '../../services/auth.service'
 import Button from '../Elements/Button'
 import InputForm from '../Elements/Input'
 
 export default function FormLogin() {
+  const [loginFailed, setLoginFailed] = useState('')
   function handleLogin(e) {
+    const { username, password } = e.target
     e.preventDefault()
-    localStorage.setItem('email', e.target.email.value)
-    localStorage.setItem('password', e.target.password.value)
-    window.location.href = '/product'
+    login(username.value, password.value, (status, res) => {
+      if (status) {
+        localStorage.setItem('token', res)
+        window.location.href = '/product'
+      } else {
+        setLoginFailed(res.response.data)
+      }
+    })
   }
   return (
     <form onSubmit={handleLogin}>
       <InputForm
-        label="Email"
-        name="email"
-        type="Email"
-        placeholder="example@email.com"
+        label="Username"
+        name="username"
+        type="text"
+        placeholder="Your Username"
       />
       <InputForm
         label="Password"
@@ -23,6 +32,9 @@ export default function FormLogin() {
         placeholder="Password"
       />
       <Button text="Login" type="submit" />
+      {loginFailed && (
+        <p className="text-red-500 mt-5 text-center">{loginFailed}</p>
+      )}
     </form>
   )
 }
