@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
 import Button from '../Elements/Button'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../../redux/actions/cartSlice'
 
 export default function ProductCard(props) {
   const { children } = props
@@ -36,7 +38,8 @@ function Body(props) {
   )
 }
 function Footer(props) {
-  const { price, handleAddToCart, id } = props
+  const { price, id } = props
+  const dispatch = useDispatch()
   return (
     <div className="flex items-center justify-between px-5 pb-6">
       <span className="text-xl font-bold text-white ">
@@ -45,7 +48,10 @@ function Footer(props) {
           currency: 'USD'
         })}
       </span>
-      <Button text="Add To Chart" onClick={() => handleAddToCart(id)} />
+      <Button
+        text="Add To Chart"
+        onClick={() => dispatch(addToCart({ id, qty: 1 }))}
+      />
     </div>
   )
 }
