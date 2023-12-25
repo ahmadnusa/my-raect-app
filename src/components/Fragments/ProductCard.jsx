@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import Button from '../Elements/Button'
+import { Link } from 'react-router-dom'
 
 export default function ProductCard(props) {
   const { children } = props
@@ -10,27 +11,27 @@ export default function ProductCard(props) {
   )
 }
 function Header(props) {
-  const { image } = props
+  const { image, id } = props
   return (
-    <a href="#">
+    <Link to={`/product/${id}`}>
       <img
         src={image}
         alt="product"
         className="p-8 rounded-t-lg h-96 w-full object-cover"
       />
-    </a>
+    </Link>
   )
 }
 function Body(props) {
-  const { title, desc } = props
+  const { title, desc, id } = props
   return (
     <div className="px-6 pb-5 h-full">
-      <a href="">
+      <Link to={`/product/${id}`}>
         <h5 className="text-xl font-semibold tracking-tight text-white pb-2">
           {title.substring(0, 23)} . . .
         </h5>
         <p className="text-m text-white">{desc.substring(0, 100)} . . .</p>
-      </a>
+      </Link>
     </div>
   )
 }
@@ -57,11 +58,13 @@ ProductCard.propTypes = {
   children: PropTypes.array
 }
 Header.propTypes = {
-  image: PropTypes.string
+  image: PropTypes.string,
+  id: PropTypes.number
 }
 Body.propTypes = {
   title: PropTypes.string,
-  desc: PropTypes.string
+  desc: PropTypes.string,
+  id: PropTypes.number
 }
 Footer.propTypes = {
   price: PropTypes.number,

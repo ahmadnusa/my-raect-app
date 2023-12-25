@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react'
 import ProductCard from '../Fragments/ProductCard'
 import Button from '../Elements/Button'
-import { getProduct } from '../../services/product.service'
+import { getProducts } from '../../services/product.service'
 import { useLogin } from '../../hooks/useLogin'
 
 export default function ProductPage() {
@@ -15,7 +15,7 @@ export default function ProductPage() {
   }, [])
 
   useEffect(() => {
-    getProduct((data) => {
+    getProducts((data) => {
       setProducts(data)
     })
   }, [])
@@ -62,10 +62,11 @@ export default function ProductPage() {
           {products.length > 0 &&
             products.map((product) => (
               <ProductCard key={product.id}>
-                <ProductCard.Header image={product.image} />
+                <ProductCard.Header image={product.image} id={product.id} />
                 <ProductCard.Body
                   title={product.title}
                   desc={product.description}
+                  id={product.id}
                 />
                 <ProductCard.Footer
                   price={product.price}
