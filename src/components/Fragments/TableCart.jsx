@@ -1,12 +1,14 @@
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
+import { useTotalPrice, useTotalPriceDispatch } from '../../context/TotalPrice'
 
 export default function TableCart(props) {
   const { products } = props
   const cart = useSelector((state) => state.cart.data)
-  const [totalPrice, setTotalPrice] = useState(0)
   const [isCartVisible, setIsCartVisible] = useState(true)
+  const dispatch = useTotalPriceDispatch()
+  const { total: totalPrice } = useTotalPrice()
 
   useEffect(() => {
     if (products.length > 0 && cart.length > 0) {
@@ -14,11 +16,16 @@ export default function TableCart(props) {
         const product = products.find((product) => product.id === item.id)
         return total + product.price * item.qty
       }, 0)
-      setTotalPrice(price)
+      dispatch({
+        type: 'ADD',
+        payload: {
+          total: price
+        }
+      })
       localStorage.setItem('cart', JSON.stringify(cart))
     }
     setIsCartVisible(cart.length > 0)
-  }, [cart, products])
+  }, [cart, dispatch, products])
 
   return (
     <div name="cart" style={{ display: isCartVisible ? 'block' : 'none' }}>
@@ -61,11 +68,10 @@ export default function TableCart(props) {
             </td>
             <td>
               <b>
-                {products.length > 0 &&
-                  totalPrice.toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'USD'
-                  })}
+                {totalPrice.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'USD'
+                })}
               </b>
             </td>
           </tr>
